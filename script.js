@@ -9,6 +9,17 @@ function initThemeToggle() {
 
 initThemeToggle();
 
+// Add keyboard support
+// ** use `keyup` instead of `keypress` for keys like `Escape`, `Backspace`.
+window.addEventListener('keyup', (e) => {
+  // console.log(e.key);
+  const button = document.querySelector(`[data-key="${e.key}"]`);
+  if (button) {
+    const clickEvent = new Event('click');
+    button.dispatchEvent(clickEvent);
+  }
+});
+
 // Store operand value when button is clicked
 
 let operandLeft = '';
