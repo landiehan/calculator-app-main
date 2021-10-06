@@ -59,22 +59,19 @@ buttons.forEach(button => {
           return;
         }
 
+        // If there is already a full [operand operator operand] expression,
+        // calculate result and update display value
+        if (operandRight) {
+          equalButtonClicked();
+        }
+
         isFirstOperand = operandLeft ? false : true;
         operator = keyValue;
         displayValue += keyValue;
         screen.textContent = displayValue;
         break;
       case 'equal':
-        if (!operandLeft || !operandRight || !operator) {
-          return;
-        }
-
-        const result = calculate(operandLeft, operandRight, operator);
-        displayValue = result;
-        screen.textContent = displayValue;
-        operandLeft = result;
-        operandRight = '';
-        isFirstOperand = true;
+        equalButtonClicked();
         break;
       case 'reset':
         operandLeft = '';
@@ -132,4 +129,17 @@ function calculate(operandLeft, operandRight, operator) {
       break;
   }
   return String(result);
+}
+
+function equalButtonClicked() {
+  if (!operandLeft || !operandRight || !operator) {
+    return;
+  }
+
+  const result = calculate(operandLeft, operandRight, operator);
+  displayValue = result;
+  screen.textContent = displayValue;
+  operandLeft = result;
+  operandRight = '';
+  isFirstOperand = true;
 }
